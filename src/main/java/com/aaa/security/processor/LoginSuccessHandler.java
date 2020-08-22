@@ -46,8 +46,8 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.setContentType("application/json");
-        String wdk = new ObjectMapper().writeValueAsString(token);
+        String str = new ObjectMapper().writeValueAsString(token);
 
-        httpServletResponse.getWriter().println(wdk);
+        httpServletResponse.getWriter().println(str);
     }
 }

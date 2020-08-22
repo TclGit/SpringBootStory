@@ -15,9 +15,6 @@ import java.util.HashMap;
 public class LoginErrorHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-        // 根据错误类型，返回不同的错误信息
-        System.out.println(e.getClass());
-
         // 2.根据请求类型返回执行不同的操作
         boolean isAjax = false;
 

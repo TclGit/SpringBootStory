@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aaa.dao.PromissionDao">
+
+    <resultMap id="MyResultMap" type="java.util.Map">
+        <id column="id" jdbcType="NUMERIC" property="id"></id>
+        <result column="menupid" jdbcType="NUMERIC" property="menupid"></result>
+        <result column="child" jdbcType="VARCHAR" property="child"></result>
+        <result column="menuname" jdbcType="VARCHAR" property="menuname"></result>
+        <result column="path" jdbcType="VARCHAR" property="path"></result>
+        <result column="routename" jdbcType="VARCHAR" property="routename"></result>
+        <result column="componentname" jdbcType="VARCHAR" property="componentname"></result>
+        <result column="icon" jdbcType="VARCHAR" property="icon"></result>
+    </resultMap>
+
+    <select id="findPromiss" resultMap="MyResultMap">
+        select * FROM menu s where s.id
+        in(select pid FROM role_menu where rid in(select sr.rid FROM role sr
+        LEFT JOIN account_role sc on sr.rid = sc.rid
+        LEFT JOIN account on sc.aid = account.aid
+        where account.aid = #{param1})) and s.menupid = #{param2}
+    </select>
+
+
+    <select id="findAccountByName" resultType="com.aaa.entity.Account">
+        select a.* FROM employee e
+        LEFT JOIN account a on e.cid = a.aid
+        where a.account = #{value} and e.state = 1
+    </select>
+
+    <select id="findRoleByAccount" resultType="java.lang.String">
+        SELECT r.rolecode FROM role r
+        LEFT JOIN account_role rm on r.rid = rm.rid
+        LEFT JOIN account a on rm.aid = a.aid
+        where a.account = #{value}
+    </select>
+
+    <select id="findPathByAccount" resultType="java.lang.String">
+        select ms.pathurl from menu_path ms
+        LEFT JOIN menu e on ms.menuid = e.id
+        where e.menuname in(select m.menuname from menu m
+        LEFT JOIN role_menu rm on m.id = rm.pid
+        LEFT JOIN role r on rm.rid = r.rid
+        where r.rolecode in(SELECT r.rolecode FROM role r
+        LEFT JOIN account_role rm on r.rid = rm.rid
+        LEFT JOIN account a on rm.aid = a.aid
+        where a.account = #{value})) and ms.pathurl != ''
+    </select>
+
+
+
+</mapper>

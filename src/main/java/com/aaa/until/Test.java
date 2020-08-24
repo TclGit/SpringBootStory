@@ -13,8 +13,6 @@ public class Test {
 
         boolean flag = bcryptPasswordEncoder.matches("admin",hashPass);
         System.out.println(flag);
-
-
     }
 
 

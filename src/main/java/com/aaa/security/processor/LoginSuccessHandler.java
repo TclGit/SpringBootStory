@@ -34,12 +34,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         map.put("id",sysAccount.getAid().toString());
         map.put("username",sysAccount.getUsername());
         map.put("code", String.valueOf(HttpServletResponse.SC_OK));
-
         String token = JwtUtils.getToken(map);
-
-        System.out.println("生成的TOKEN："+token);
-
-
         //fastJson
         String string = JSON.toJSONString(sysAccount);
         String res = JsonUtils.prettyJson(string);

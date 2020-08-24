@@ -9,6 +9,7 @@ import com.aaa.service.RoleService;
 import com.aaa.service.impl.AccountService;
 import com.aaa.until.JwtUtils;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -110,7 +111,7 @@ public class UtilsController {
 
     @ResponseBody
     @RequestMapping("ListAll")
-    public Object list(Model model){
+    public Object list(){
         List<Account> accounts = accountService.ListAll();
         return accounts;
     }
@@ -118,6 +119,10 @@ public class UtilsController {
     @ResponseBody
     @RequestMapping("insert")
     public Object insert(@RequestBody Account account){
+        //获取后台传来的密码，并进行转码操作
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String encode = bCryptPasswordEncoder.encode(account.getPassword());
+        account.setPwd(encode);
         Integer insert = accountService.insert(account);
         if (insert ==1){
             return insert;

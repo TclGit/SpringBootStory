@@ -4,12 +4,6 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * (Employee)实体类
- *
- * @author makejava
- * @since 2020-08-21 20:07:21
- */
 @Data
 public class Employee implements Serializable {
 
@@ -17,9 +11,11 @@ public class Employee implements Serializable {
 
     private String ename;
 
-    private Integer sex;
+    private String sex;
 
     private Integer phone;
+
+    private String pro;
 
     private String addr;
 

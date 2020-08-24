@@ -15,6 +15,10 @@ import org.springframework.web.cors.CorsUtils;
 
 import javax.annotation.Resource;
 
+
+/**
+ * 田常乐
+ */
 @EnableWebSecurity
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true,securedEnabled = true,jsr250Enabled = true)

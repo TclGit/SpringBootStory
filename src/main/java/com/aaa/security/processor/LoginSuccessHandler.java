@@ -17,6 +17,10 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 
+
+/**
+ * 田常乐
+ */
 @Component
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
@@ -34,20 +38,15 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         map.put("id",sysAccount.getAid().toString());
         map.put("username",sysAccount.getUsername());
         map.put("code", String.valueOf(HttpServletResponse.SC_OK));
-
         String token = JwtUtils.getToken(map);
-
-        System.out.println("生成的TOKEN："+token);
-
-
         //fastJson
         String string = JSON.toJSONString(sysAccount);
         String res = JsonUtils.prettyJson(string);
 
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.setContentType("application/json");
-        String wdk = new ObjectMapper().writeValueAsString(token);
+        String str = new ObjectMapper().writeValueAsString(token);
 
-        httpServletResponse.getWriter().println(wdk);
+        httpServletResponse.getWriter().println(str);
     }
 }

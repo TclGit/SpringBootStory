@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.dao.EmpInfoDao">
+    <select id="findall" resultType="com.aaa.entity.Employee">
+          select eid,ename,sex,phone,pro,addr,idcard,email,state from employee
+    </select>
+
+    <insert id="add">
+        insert into employee(eid,ename,sex,phone,pro,addr,idcard,email,state,cid) values(null,#{ename},#{sex},#{phone},#{pro},#{addr},#{idcard},#{email},1,null )
+    </insert>
+
+    <delete id="delete">
+        delete from employee where eid = #{eid}
+    </delete>
+
+    <update id="update">
+        update employee set ename=#{ename},sex=#{sex},phone=#{phone},pro=#{pro},addr=#{addr},idcard=#{idcard},email=#{email} where eid = #{eid}
+    </update>
+</mapper>

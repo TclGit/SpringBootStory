@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aaa.dao.AccountDao">
+    <insert id="insert">
+        insert into account values (null,#{account},#{pwd},#{createtime},#{enable},
+        #{isaccountnonexpired},#{isaccountnonlocked},#{iscredentialsnonexpired},#{isenabled})
+    </insert>
+    <update id="update">
+        update account set enable=#{enable},isaccountnonexpired=#{isaccountnonexpired},isaccountnonlocked=#{isaccountnonlocked},
+        iscredentialsnonexpired=#{iscredentialsnonexpired},isenabled=#{isenabled} where aid=#{aid}
+    </update>
+    <delete id="del">
+        delete from account where aid=#{value}
+    </delete>
+    <select id="ListAll" resultType="com.aaa.entity.Account">
+        select * from account
+    </select>
+</mapper>

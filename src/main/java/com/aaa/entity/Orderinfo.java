@@ -4,12 +4,6 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * (Orderinfo)实体类
- *
- * @author makejava
- * @since 2020-08-21 20:05:01
- */
 @Data
 public class Orderinfo implements Serializable {
 

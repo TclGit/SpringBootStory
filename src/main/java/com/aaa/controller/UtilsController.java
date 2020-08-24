@@ -1,12 +1,15 @@
 package com.aaa.controller;
 
+import com.aaa.entity.Account;
 import com.aaa.entity.Employee;
 import com.aaa.entity.Role;
 import com.aaa.service.EmpService;
 import com.aaa.service.PromissionService;
 import com.aaa.service.RoleService;
+import com.aaa.service.impl.AccountService;
 import com.aaa.until.JwtUtils;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -78,5 +81,51 @@ public class UtilsController {
     public List<Role> findAllRole()
     {
         return roleService.findAllRole();
+    }
+
+    /**
+     * 马琳  账号增删改
+     */
+    @Resource
+    AccountService accountService;
+
+    @ResponseBody
+    @RequestMapping("ListAll")
+    public Object list(Model model){
+        List<Account> accounts = accountService.ListAll();
+        return accounts;
+    }
+
+    @ResponseBody
+    @RequestMapping("insert")
+    public Object insert(@RequestBody Account account){
+        Integer insert = accountService.insert(account);
+        if (insert ==1){
+            return insert;
+        }else {
+            return 0;
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("update_account")
+    public Object update(@RequestBody Account account){
+        Integer update = accountService.update(account);
+        if (update ==1){
+            return update;
+        }else {
+            return 0;
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("del")
+    public Object del(@RequestBody Map map){
+        Integer del = accountService.del((Integer) map.get("aid"));
+        if (del == 1){
+            return del;
+        }else {
+            return 0;
+        }
     }
 }

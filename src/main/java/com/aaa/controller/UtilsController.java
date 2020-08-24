@@ -3,10 +3,12 @@ package com.aaa.controller;
 import com.aaa.entity.Account;
 import com.aaa.entity.Employee;
 import com.aaa.entity.Role;
+import com.aaa.entity.Theme_type;
 import com.aaa.service.EmpService;
 import com.aaa.service.PromissionService;
 import com.aaa.service.RoleService;
 import com.aaa.service.impl.AccountService;
+import com.aaa.service.impl.ThemetypeImpl;
 import com.aaa.until.JwtUtils;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -152,4 +154,55 @@ public class UtilsController {
             return 0;
         }
     }
+
+
+
+
+
+    //任帝 主题分类的增删改查
+    @Resource
+    private ThemetypeImpl themetypeimpl;
+
+
+    @ResponseBody
+    @RequestMapping("queryAll")
+    public List<Theme_type> queryAll(){
+        List<Theme_type> Them = themetypeimpl.queryAll();
+        return Them;
+    }
+
+    @ResponseBody
+    @RequestMapping("add_Type")
+    public int add(@RequestBody Theme_type theme_type){
+        Integer add = themetypeimpl.add(theme_type);
+        if (add == 1){
+            return add;
+        }else {
+            return 0;
+        }
+    }
+
+
+    @ResponseBody
+    @RequestMapping("update_Themetype")
+    public int update(@RequestBody Theme_type theme_type){
+        Integer update = themetypeimpl.update(theme_type);
+        if (update == 1){
+            return update;
+        }else {
+            return 0;
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("delete")
+    public int delete(@RequestBody Map map){
+        Integer del = themetypeimpl.delete((Integer) map.get("typeid"));
+        if (del == 1){
+            return del;
+        }else {
+            return 0;
+        }
+    }
+
 }

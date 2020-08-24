@@ -4,6 +4,10 @@ import com.aaa.entity.Employee;
 
 import java.util.List;
 
+
+/**
+ * 田常乐
+ */
 public interface EmpService {
 
     List<Employee> findall();

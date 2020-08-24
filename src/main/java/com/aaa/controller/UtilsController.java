@@ -71,6 +71,7 @@ public class UtilsController {
     @RequestMapping(value = "update",method = RequestMethod.POST)
     public Integer update(@RequestBody Employee employee)
     {
+        System.out.println(employee);
         return empService.update(employee);
     }
 

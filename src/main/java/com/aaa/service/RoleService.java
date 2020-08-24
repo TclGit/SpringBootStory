@@ -4,6 +4,10 @@ import com.aaa.entity.Role;
 
 import java.util.List;
 
+
+/**
+ * 田常乐
+ */
 public interface RoleService {
 
     List<Role> findAllRole();

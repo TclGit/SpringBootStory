@@ -5,6 +5,10 @@ import com.aaa.entity.Account;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * 田常乐
+ */
 public interface PromissionService {
 
     //根据登录账号拿信息

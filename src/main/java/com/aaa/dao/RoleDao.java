@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface RoleDao {
 
-    List<Role> findAllRole();
+    public List<Role> findAllRole();
 
     int update(Role role);
 

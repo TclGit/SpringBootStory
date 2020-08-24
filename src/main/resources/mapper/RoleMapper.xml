@@ -6,4 +6,8 @@
     <select id="findAllRole" resultType="com.aaa.entity.Role">
         select rid,rname,roledesc,rolecode,createtime from role
     </select>
+
+    <update id="update">
+        update role set roledesc = #{roledesc} where rid = #{rid}
+    </update>
 </mapper>

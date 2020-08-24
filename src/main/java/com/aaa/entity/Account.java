@@ -3,16 +3,11 @@ package com.aaa.entity;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Collection;
 import java.util.Date;
 
-/**
- * (Account)实体类
- *
- * @author makejava
- * @since 2020-08-21 20:06:29
- */
 @Data
 public class Account implements UserDetails {
 

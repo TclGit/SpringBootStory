@@ -9,6 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.List;
 
+
+/**
+ * 田常乐
+ */
 @Service
 @Transactional
 public class RoleServiceImpl implements RoleService {
@@ -19,5 +23,10 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<Role> findAllRole() {
         return roleDao.findAllRole();
+    }
+
+    @Override
+    public int update(Role role) {
+        return roleDao.update(role);
     }
 }

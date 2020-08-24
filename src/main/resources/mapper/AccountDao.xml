@@ -15,4 +15,9 @@
     <select id="ListAll" resultType="com.aaa.entity.Account">
         select * from account
     </select>
+
+
+    <update id="updatePwd">
+        update account set pwd = #{pwd} where account = #{account}
+    </update>
 </mapper>

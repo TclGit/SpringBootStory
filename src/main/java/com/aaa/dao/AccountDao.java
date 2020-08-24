@@ -16,4 +16,8 @@ public interface AccountDao {
 
     //    删除
     Integer del(Integer aid);
+
+
+    //李慧敏   账号表密码修改
+    Integer updatePwd(String account,String pwd);
 }

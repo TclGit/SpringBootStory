@@ -8,4 +8,6 @@ public interface RoleDao {
 
     List<Role> findAllRole();
 
+    int update(Role role);
+
 }

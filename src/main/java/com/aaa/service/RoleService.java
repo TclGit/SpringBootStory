@@ -8,4 +8,6 @@ public interface RoleService {
 
     List<Role> findAllRole();
 
+    int update(Role role);
+
 }

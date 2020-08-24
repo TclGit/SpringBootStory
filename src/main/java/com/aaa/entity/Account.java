@@ -42,12 +42,6 @@ public class Account implements UserDetails {
         return this.authorities;
     }
 
-    public void setPwd(String pwd) {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        String s = bCryptPasswordEncoder.encode(pwd);
-        this.pwd = s;
-    }
-
     @Override
     public String getPassword() {
         return this.pwd;

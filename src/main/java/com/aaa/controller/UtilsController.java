@@ -79,4 +79,20 @@ public class UtilsController {
     {
         return roleService.findAllRole();
     }
+
+    /**
+     * 王勇琦 角色修改
+     * @param role
+     * @return
+     */
+    @RequestMapping("role_update")
+    @ResponseBody
+    public int update(@RequestBody Role role){
+        int update = roleService.update(role);
+        if(update == 1){
+            return update;
+        }else {
+            return 0;
+        }
+    }
 }

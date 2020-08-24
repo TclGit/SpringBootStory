@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface EmpInfoDao {
 
-    public List<Employee> findall();
+    List<Employee> findall();
 
     Integer add(Employee employee);
 

@@ -47,6 +47,25 @@
         where a.account = #{value})) and ms.pathurl != ''
     </select>
 
+    <select id="findPermiSsionInfo" resultMap="MyResultMap">
+        select * from menu
+        <where>
+            <if test="value == null">
+                menupid = 0
+            </if>
+            <if test="value != null">
+                menupid = #{value}
+            </if>
+        </where>
+    </select>
 
-
+    <select id="findByRoleId" resultMap="MyResultMap">
+        select m.id from menu m
+        LEFT JOIN role_menu rm on m.id = rm.pid
+        LEFT JOIN role r on rm.rid = r.rid
+        where r.rolecode in(SELECT r.rolecode FROM role r
+        LEFT JOIN account_role rm on r.rid = rm.rid
+        LEFT JOIN account a on rm.aid = a.aid
+        where r.rid  = #{aid})
+    </select>
 </mapper>

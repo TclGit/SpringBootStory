@@ -1,12 +1,10 @@
 package com.aaa.controller;
-import com.aaa.entity.Account;
-import com.aaa.entity.Employee;
-import com.aaa.entity.Role;
-import com.aaa.entity.Theme_type;
+import com.aaa.entity.*;
 import com.aaa.service.EmpService;
 import com.aaa.service.PromissionService;
 import com.aaa.service.RoleService;
 import com.aaa.service.impl.AccountService;
+import com.aaa.service.impl.StoryServiceImpl;
 import com.aaa.service.impl.ThemetypeImpl;
 import com.aaa.service.impl.UserServiceImpl;
 import com.aaa.until.JwtUtils;
@@ -102,6 +100,25 @@ public class UtilsController {
             return 0;
         }
     }
+
+    @Resource
+    StoryServiceImpl storyService;
+
+    @RequestMapping("story_listAll")
+    @ResponseBody
+    public List<Story> story_listAll(){
+        List<Story> stories = storyService.listAll();
+        return stories;
+    }
+
+    @RequestMapping("story_update")
+    @ResponseBody
+    public int story_update(@RequestBody Story story){
+        return storyService.update(story);
+    }
+
+
+
 
     /**
      * 马琳 账号增删改

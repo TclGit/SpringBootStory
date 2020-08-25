@@ -1,10 +1,14 @@
 package com.aaa.controller;
+
 import com.aaa.entity.*;
 import com.aaa.service.EmpService;
 import com.aaa.service.PromissionService;
 import com.aaa.service.RoleMenuService;
 import com.aaa.service.RoleService;
-import com.aaa.service.impl.*;
+import com.aaa.service.impl.AccountService;
+import com.aaa.service.impl.StoryServiceImpl;
+import com.aaa.service.impl.ThemetypeImpl;
+import com.aaa.service.impl.UserServiceImpl;
 import com.aaa.until.JwtUtils;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.apache.catalina.User;
@@ -61,7 +65,6 @@ public class UtilsController {
     @RequestMapping(value = "add",method = RequestMethod.POST )
     public Integer add(@RequestBody Employee employee)
     {
-        System.out.println();
         return empService.add(employee);
     }
 
@@ -74,7 +77,6 @@ public class UtilsController {
     @RequestMapping(value = "update",method = RequestMethod.POST)
     public Integer update(@RequestBody Employee employee)
     {
-        System.out.println(employee);
         return empService.update(employee);
     }
 
@@ -95,7 +97,6 @@ public class UtilsController {
     public Object findByRoleId(@PathVariable("rid") Integer rid)
     {
         List<Map<String,Object>> promis = promissionService.findByRoleId(rid);
-        System.out.println(promis);
         return promis;
     }
 
@@ -107,14 +108,12 @@ public class UtilsController {
     public Object  findPermiSsionInfo()
     {
         List<Map<String, Object>> permiSsionInfo = promissionService.findPermiSsionInfo();
-        System.out.println(permiSsionInfo);
         return permiSsionInfo;
     }
 
     @RequestMapping(value = "RoleMenu",method = RequestMethod.PUT)
     public void RoleMenu(Integer rid,int[] keys)
     {
-        System.out.println(rid+""+keys);
         roleMenuService.del(rid);
         for (int i = 0;i<=keys.length-1;i++)
         {
@@ -215,9 +214,6 @@ public class UtilsController {
     }
 
 
-
-
-
     //任帝 主题分类的增删改查
     @Resource
     private ThemetypeImpl themetypeimpl;
@@ -265,10 +261,6 @@ public class UtilsController {
     }
 
 
-
-
-
-
     //李慧敏的专属类型
     @Resource
     private UserServiceImpl userServiceImpl;
@@ -285,7 +277,6 @@ public class UtilsController {
 
     @RequestMapping(value = "findAll",method = RequestMethod.POST)
     public List<User> findAll(){
-        System.out.println("用户查询Controller");
         return userServiceImpl.findAll();
     }
 
@@ -316,11 +307,6 @@ public class UtilsController {
 
     @RequestMapping(value = "updateState/{uid}/{state}",method = RequestMethod.POST)
     public Integer update(@PathVariable("state") Integer state,@PathVariable("uid") Integer uid){
-        System.out.println("修改用户状态");
-        System.out.println(state+""+uid);
         return userServiceImpl.updateState(state,uid);
     }
-
-
-
 }

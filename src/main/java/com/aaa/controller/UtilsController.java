@@ -3,10 +3,7 @@ import com.aaa.entity.*;
 import com.aaa.service.EmpService;
 import com.aaa.service.PromissionService;
 import com.aaa.service.RoleService;
-import com.aaa.service.impl.AccountService;
-import com.aaa.service.impl.StoryServiceImpl;
-import com.aaa.service.impl.ThemetypeImpl;
-import com.aaa.service.impl.UserServiceImpl;
+import com.aaa.service.impl.*;
 import com.aaa.until.JwtUtils;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.apache.catalina.User;
@@ -91,7 +88,6 @@ public class UtilsController {
      * @return
      */
     @RequestMapping("role_update")
-    @ResponseBody
     public int update(@RequestBody Role role){
         int update = roleService.update(role);
         if(update == 1){
@@ -105,19 +101,25 @@ public class UtilsController {
     StoryServiceImpl storyService;
 
     @RequestMapping("story_listAll")
-    @ResponseBody
     public List<Story> story_listAll(){
         List<Story> stories = storyService.listAll();
         return stories;
     }
 
     @RequestMapping("story_update")
-    @ResponseBody
     public int story_update(@RequestBody Story story){
         return storyService.update(story);
     }
 
 
+    @RequestMapping("personal_center")
+    public Object personal_center(HttpServletRequest request){
+        String token = request.getHeader("token");
+        DecodedJWT verify = JwtUtils.verify(token);
+        String id = verify.getClaim("id").asString();
+        Integer aid = Integer.parseInt(id);
+        return empService.listAllEmployee(aid);
+    }
 
 
     /**

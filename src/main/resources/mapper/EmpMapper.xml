@@ -47,6 +47,7 @@
         LEFT JOIN account a ON e.cid = a.aid
         LEFT JOIN  account_role ar on ar.aid = a.aid
         LEFT JOIN role r ON ar.rid = r.rid
+        where a.aid = #{param1}
     </select>
 
 

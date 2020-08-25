@@ -1,10 +1,13 @@
-package com.aaa.dao;
+package com.aaa.service;
 
 import com.aaa.entity.Comment;
 
 import java.util.List;
 
-public interface CommentDao {
+/**
+ * 马琳
+ */
+public interface CommentService {
 
     List<Comment> listAll_Comment();
 }

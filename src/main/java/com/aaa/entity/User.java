@@ -19,5 +19,4 @@ public class User {
     private Double balance;
 
     private Integer count;
-
 }

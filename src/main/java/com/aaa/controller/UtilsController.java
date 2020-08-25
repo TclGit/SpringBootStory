@@ -1,8 +1,6 @@
 package com.aaa.controller;
 import com.aaa.entity.*;
-import com.aaa.service.EmpService;
-import com.aaa.service.PromissionService;
-import com.aaa.service.RoleService;
+import com.aaa.service.*;
 import com.aaa.service.impl.AccountService;
 import com.aaa.service.impl.StoryServiceImpl;
 import com.aaa.service.impl.ThemetypeImpl;
@@ -116,10 +114,6 @@ public class UtilsController {
     public int story_update(@RequestBody Story story){
         return storyService.update(story);
     }
-
-
-
-
     /**
      * 马琳 账号增删改
      * @param role
@@ -150,7 +144,6 @@ public class UtilsController {
         }
     }
 
-    @ResponseBody
     @RequestMapping("update_account")
     public Object update(@RequestBody Account account){
         Integer update = accountService.update(account);
@@ -161,7 +154,6 @@ public class UtilsController {
         }
     }
 
-    @ResponseBody
     @RequestMapping("del")
     public Object del(@RequestBody Map map){
         Integer del = accountService.del((Integer) map.get("aid"));
@@ -172,23 +164,40 @@ public class UtilsController {
         }
     }
 
+    /*
+     *马琳评论查询
+     */
+    @Resource
+    CommentService commentService;
 
+    @RequestMapping("listAll_Comment")
+    public List<Comment> listAllComment(){
+        List<Comment> comments = commentService.listAll_Comment();
+        return comments;
+    }
 
+    /**
+     * 马琳 回复查询
+     */
+    @Resource
+    ReplayService replayService;
 
+    @RequestMapping("listAll_Replay")
+    public List<Replay> listAllReplay(){
+        List<Replay> replays = replayService.listAll_Replay();
+        return replays;
+    }
 
     //任帝 主题分类的增删改查
     @Resource
     private ThemetypeImpl themetypeimpl;
 
-
-    @ResponseBody
     @RequestMapping("queryAll")
     public List<Theme_type> queryAll(){
         List<Theme_type> Them = themetypeimpl.queryAll();
         return Them;
     }
 
-    @ResponseBody
     @RequestMapping("add_Type")
     public int add(@RequestBody Theme_type theme_type){
         Integer add = themetypeimpl.add(theme_type);
@@ -199,8 +208,6 @@ public class UtilsController {
         }
     }
 
-
-    @ResponseBody
     @RequestMapping("update_Themetype")
     public int update(@RequestBody Theme_type theme_type){
         Integer update = themetypeimpl.update(theme_type);
@@ -211,7 +218,6 @@ public class UtilsController {
         }
     }
 
-    @ResponseBody
     @RequestMapping("delete")
     public int delete(@RequestBody Map map){
         Integer del = themetypeimpl.delete((Integer) map.get("typeid"));
@@ -221,11 +227,6 @@ public class UtilsController {
             return 0;
         }
     }
-
-
-
-
-
 
     //李慧敏的专属类型
     @Resource
@@ -278,7 +279,6 @@ public class UtilsController {
         System.out.println(state+""+uid);
         return userServiceImpl.updateState(state,uid);
     }
-
 
 
 }

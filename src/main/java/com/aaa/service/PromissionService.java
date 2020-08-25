@@ -26,4 +26,8 @@ public interface PromissionService {
     //拿权限
     List<Map<String,Object>> findPromiss(Integer accountid);
 
+    public List<Map<String,Object>> findByRoleId(Integer rid);
+
+    List<Map<String,Object>> findPermiSsionInfo();
+
 }

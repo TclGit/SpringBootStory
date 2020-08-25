@@ -34,6 +34,24 @@ public class PromissionServiceImpl implements PromissionService {
     }
 
     @Override
+    public List<Map<String,Object>> findByRoleId(Integer rid) {
+        return promissionDao.findByRoleId(rid);
+    }
+
+    @Override
+    public List<Map<String, Object>> findPermiSsionInfo() {
+        //查询出的所有一级节点
+        List<Map<String, Object>> list = promissionDao.findPermiSsionInfo(null);
+        //查询出一级节点下的二级节点
+        for(Map<String, Object> map : list){
+            Integer menupid = Integer.parseInt(map.get("id").toString());
+            List<Map<String, Object>> node = promissionDao.findPermiSsionInfo(menupid);
+            map.put("children",node);
+        }
+        return list;
+    }
+
+    @Override
     public Account findAccountByName(String account) {
         System.out.println(account);
         return promissionDao.findAccountByName(account);

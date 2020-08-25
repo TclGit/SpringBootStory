@@ -7,6 +7,7 @@ import com.aaa.service.impl.ThemetypeImpl;
 import com.aaa.service.impl.UserServiceImpl;
 import com.aaa.service.EmpService;
 import com.aaa.service.PromissionService;
+import com.aaa.service.RoleMenuService;
 import com.aaa.service.RoleService;
 import com.aaa.until.JwtUtils;
 import com.auth0.jwt.interfaces.DecodedJWT;
@@ -31,6 +32,9 @@ public class UtilsController {
 
     @Resource
     RoleService roleService;
+
+    @Resource
+    RoleMenuService roleMenuService;
 
     /**
      * @author 田常乐  权限查询
@@ -60,6 +64,7 @@ public class UtilsController {
     @RequestMapping(value = "add",method = RequestMethod.POST )
     public Integer add(@RequestBody Employee employee)
     {
+        System.out.println();
         return empService.add(employee);
     }
 
@@ -83,6 +88,41 @@ public class UtilsController {
     public List<Role> findAllRole()
     {
         return roleService.findAllRole();
+    }
+
+    /**
+     * 田常乐
+     * 根据角色id查询显示权限
+     */
+    @RequestMapping(value = "findByRoleId/{rid}",method = RequestMethod.POST )
+    public Object findByRoleId(@PathVariable("rid") Integer rid)
+    {
+        List<Map<String,Object>> promis = promissionService.findByRoleId(rid);
+        System.out.println(promis);
+        return promis;
+    }
+
+    /**
+     * 田常乐
+     * 权限分配
+     */
+    @RequestMapping("findPermiSsionInfo")
+    public Object  findPermiSsionInfo()
+    {
+        List<Map<String, Object>> permiSsionInfo = promissionService.findPermiSsionInfo();
+        System.out.println(permiSsionInfo);
+        return permiSsionInfo;
+    }
+
+    @RequestMapping(value = "RoleMenu",method = RequestMethod.PUT)
+    public void RoleMenu(Integer rid,int[] keys)
+    {
+        System.out.println(rid+""+keys);
+        roleMenuService.del(rid);
+        for (int i = 0;i<=keys.length-1;i++)
+        {
+            roleMenuService.add(rid,keys[i]);
+        }
     }
 
     /**

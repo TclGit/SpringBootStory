@@ -1,0 +1,12 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.dao.RoleMenuDao">
+
+    <insert id="add">
+        insert into role_menu values(#{param1},#{param2})
+    </insert>
+    <delete id="del">
+        delete from role_menu where rid = #{rid}
+    </delete>
+</mapper>

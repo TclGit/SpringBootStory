@@ -8,6 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.List;
 
+/***
+ * 马琳
+ */
 @Service
 @Transactional
 public class AccountService implements AccountDao {

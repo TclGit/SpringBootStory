@@ -3,6 +3,7 @@ package com.aaa.entity;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 public class Employee implements Serializable {
@@ -26,5 +27,12 @@ public class Employee implements Serializable {
     private Integer state;
 
     private Integer cid;
+
+    //账号表
+    private Account accounts;
+
+    private AccountRole accountRole;
+
+    private Role role;
 
 }

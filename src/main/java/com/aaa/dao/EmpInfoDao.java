@@ -13,4 +13,6 @@ public interface EmpInfoDao {
     Integer delete(Integer eid);
 
     Integer update(Employee employee);
+
+    List<Employee> listAllEmployee(Integer aid);
 }

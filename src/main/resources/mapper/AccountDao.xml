@@ -2,12 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.aaa.dao.AccountDao">
     <insert id="insert">
-        insert into account values (null,#{account},#{pwd},#{createtime},#{enable},
-        #{isaccountnonexpired},#{isaccountnonlocked},#{iscredentialsnonexpired},#{isenabled})
+        insert into account values (null,#{account},#{pwd},#{createtime},1,1,1,1,1)
     </insert>
     <update id="update">
-        update account set enable=#{enable},isaccountnonexpired=#{isaccountnonexpired},isaccountnonlocked=#{isaccountnonlocked},
-        iscredentialsnonexpired=#{iscredentialsnonexpired},isenabled=#{isenabled} where aid=#{aid}
+        update account set account=#{account} where aid=#{aid}
     </update>
     <delete id="del">
         delete from account where aid=#{value}

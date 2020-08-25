@@ -3,6 +3,53 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aaa.dao.EmpInfoDao">
+    <resultMap id="EmpMap" type="com.aaa.entity.Employee">
+        <!--Employee信息-->
+        <id column="eid" property="eid"></id>
+        <result column="ename" property="ename"></result>
+        <result column="sex" property="sex"></result>
+        <result column="phone" property="phone"></result>
+        <result column="addr" property="addr"></result>
+        <result column="idcard" property="idcard"></result>
+        <result column="email" property="email"></result>
+        <result column="state" property="state"></result>
+        <result column="cid" property="cid"></result>
+        <association property="accounts" javaType="com.aaa.entity.Account">
+            <id column="aid" property="aid"></id>
+            <result column="account" property="account"></result>
+            <result column="pwd" property="pwd"></result>
+            <result column="createtime" property="createtime"></result>
+            <result column="enable" property="enable"></result>
+            <result column="isaccountnonexpired" property="isaccountnonexpired"></result>
+            <result column="isaccountnonlocked" property="isaccountnonlocked"></result>
+            <result column="iscredentialsnonexpired" property="iscredentialsnonexpired"></result>
+            <result column="isenabled" property="isenabled"></result>
+        </association>
+        <association property="accountRole" javaType="com.aaa.entity.AccountRole">
+            <id column="id" property="id"></id>
+            <result column="rid" property="rid"></result>
+            <result column="aid" property="aid"></result>
+        </association>
+        <association property="role" javaType="com.aaa.entity.Role">
+            <id column="rid" property="rid"></id>
+            <result column="rname" property="rname"></result>
+            <result column="roledesc" property="roledesc"></result>
+            <result column="rolecode" property="rolecode"></result>
+            <result column="states" property="states"></result>
+            <result column="createtime" property="createtime"></result>
+        </association>
+    </resultMap>
+
+    <!--个人中心查询-->
+    <select id="listAllEmployee" resultMap="EmpMap">
+        select e.eid,e.ename,e.sex,e.phone,e.idcard,e.addr,e.email,e.state,e.cid,a.aid,a.account,a.pwd,a.createtime,a.enable,a.isaccountnonexpired,a.isaccountnonlocked,a.iscredentialsnonexpired,a.isenabled,r.rid,r.rname,r.roledesc,r.rolecode,r.states,r.createtime
+        from employee e
+        LEFT JOIN account a ON e.cid = a.aid
+        LEFT JOIN  account_role ar on ar.aid = a.aid
+        LEFT JOIN role r ON ar.rid = r.rid
+    </select>
+
+
     <select id="findall" resultType="com.aaa.entity.Employee">
           select eid,ename,sex,phone,pro,addr,idcard,email,state from employee
     </select>

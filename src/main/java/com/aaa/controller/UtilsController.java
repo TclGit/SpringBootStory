@@ -10,7 +10,6 @@ import com.aaa.service.impl.AccountService;
 import com.aaa.until.JwtUtils;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -151,5 +150,30 @@ public class UtilsController {
         }else {
             return 0;
         }
+    }
+
+    /**
+     * 马琳 评论查询
+     *
+     */
+
+//    @Resource
+//    CommentServiceImpl commentService;
+//
+//    @ResponseBody
+//    @RequestMapping("ListAll_Comment")
+//    public Object listComment(){
+//        List<Comment> comments = commentService.listAll();
+//        return comments;
+//    }
+
+    /***
+     * 后台个人中心查询
+      */
+    @ResponseBody
+    @RequestMapping("ListAll_Employee")
+    public Object listEmployee(){
+        List<Employee> employees = empService.listAllEmployee();
+        return employees;
     }
 }

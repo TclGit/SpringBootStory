@@ -1,0 +1,38 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.dao.StoryDao">
+
+    <resultMap id="storyMap" type="com.aaa.entity.Story">
+        <id column="sid" property="sid"></id>
+        <result column="stitle" property="stitle"></result>
+        <result column="scontent" property="scontent"></result>
+        <result column="pic" property="pic"></result>
+        <result column="givecount" property="givecount"></result>
+        <result column="browsecount" property="browsecount"></result>
+        <result column="tid" property="tid"></result>
+        <result column="state" property="state"></result>
+        <result column="uid" property="uid"></result>
+        <result column="ifselected" property="ifselected"></result>
+        <result column="ifrelease" property="ifrelease"></result>
+        <association property="users" javaType="com.aaa.entity.User">
+            <result column="uname" property="uname"></result>
+        </association>
+        <association property="themeInfo" javaType="com.aaa.entity.ThemeInfo">
+            <result column="tname" property="tname"></result>
+        </association>
+    </resultMap>
+
+    <select id="listAll" resultMap="storyMap">
+        select s.sid,s.stitle,s.scontent,s.pic,s.givecount,s.browsecount,s.tid,
+        s.state,s.uid,s.ifselected,s.ifrelease,t.tname,uname from storyinfo s
+        LEFT JOIN themeinfo t ON s.tid = t.tid
+        LEFT JOIN user u ON s.uid = u.uid
+        where s.ifrelease = 1
+    </select>
+
+    <update id="update">
+        update storyinfo set ifselected = 1 where sid = #{sid}
+    </update>
+
+</mapper>

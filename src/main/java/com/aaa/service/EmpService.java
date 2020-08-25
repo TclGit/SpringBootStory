@@ -18,5 +18,5 @@ public interface EmpService {
 
     Integer update(Employee employee);
 
-    List<Employee> listAllEmployee();
+    List<Employee> listAllEmployee(Integer aid);
 }

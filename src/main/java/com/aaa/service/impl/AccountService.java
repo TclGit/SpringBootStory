@@ -33,4 +33,13 @@ public class AccountService implements AccountDao {
     public Integer del(Integer aid){
         return accountDao.del(aid);
     }
+
+
+
+
+
+    @Override
+    public Integer updatePwd(String account, String pwd) {
+        return accountDao.updatePwd(account,pwd);
+    }
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--任帝-->
+<mapper namespace="com.aaa.dao.ThemetypeDao">
+
+    <select id="queryAll" resultType="com.aaa.entity.Theme_type">
+        select * from theme_type
+    </select>
+
+    <insert id="add">
+        insert into theme_type values(#{typeid},#{typename})
+    </insert>
+
+    <update id="update">
+        update theme_type set typename=#{typename} where typeid=#{typeid}
+    </update>
+
+    <delete id="delete">
+        delete from theme_type where typeid=#{typeid}
+    </delete>
+
+</mapper>

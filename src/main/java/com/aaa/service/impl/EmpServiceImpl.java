@@ -40,7 +40,8 @@ public class EmpServiceImpl implements EmpService {
     }
 
     @Override
-    public List<Employee> listAllEmployee(Integer aid) {
-        return empInfoDao.listAllEmployee(aid);
+    public Employee listAllEmployee(Integer aid) {
+        List<Employee> employees = empInfoDao.listAllEmployee(aid);
+        return employees.get(0);
     }
 }

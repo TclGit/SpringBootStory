@@ -247,6 +247,19 @@ public class UtilsController {
 
 
 
+    /**
+     * 马琳 收支明细
+     */
+
+    @Resource
+    BillInfoService billInfoService;
+
+    @RequestMapping("listAll_BillInfo")
+    public List<Billinfo> listAllBillInfo(){
+        List<Billinfo> billinfos = billInfoService.listAll_BillInfo();
+        return billinfos;
+    }
+
     //任帝 主题分类的增删改查
     @Resource
     private ThemetypeImpl themetypeimpl;

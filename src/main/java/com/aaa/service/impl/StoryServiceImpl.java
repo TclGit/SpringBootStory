@@ -17,8 +17,8 @@ public class StoryServiceImpl implements StoryDao {
 
 
     @Override
-    public List<Story> listAll() {
-        List<Story> stories = storyDao.listAll();
+    public List<Story> listAll(boolean rs) {
+        List<Story> stories = storyDao.listAll(rs);
         return stories;
     }
 

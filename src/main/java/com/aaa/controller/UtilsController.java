@@ -144,8 +144,9 @@ public class UtilsController {
     StoryServiceImpl storyService;
 
     @RequestMapping("story_listAll")
-    public List<Story> story_listAll(){
-        List<Story> stories = storyService.listAll();
+    public List<Story> story_listAll(boolean rs){
+        List<Story> stories = storyService.listAll(rs);
+        System.out.println(rs);
         return stories;
     }
 

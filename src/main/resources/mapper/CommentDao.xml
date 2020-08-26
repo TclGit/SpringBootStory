@@ -2,7 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.aaa.dao.CommentDao">
 
-    <select id="listAll" resultType="com.aaa.entity.Comment">
+    <resultMap id="CommentMap" type="com.aaa.entity.Comment">
+        <id column="cid" property="cid"></id>
+        <result column="content" property="content"></result>
+        <result column="ctime" property="ctime"></result>
+        <result column="uid" property="uid"></result>
+        <result column="sid" property="sid"></result>
+        <association property="story" javaType="com.aaa.entity.Story">
+            <id column="sid" property="sid"></id>
+            <result column="stitle" property="stitle"></result>
+            <result column="scontent" property="scontent"></result>
+        </association>
+        <association property="user" javaType="com.aaa.entity.User">
+            <id column="uid" property="uid"></id>
+            <result column="uname" property="uname"></result>
+            <result column="phone" property="phone"></result>
+            <result column="headportrait" property="headportrait"></result>
+        </association>
+    </resultMap>
 
+    <select id="listAll_Comment" resultMap="CommentMap">
+        select c.cid,c.content,c.ctime,c.uid,c.sid,
+        u.uid,u.uname,u.phone,u.headportrait,
+        s.sid,s.stitle,s.scontent
+        from comment c
+        LEFT JOIN user u on c.uid = u.uid
+        LEFT JOIN storyinfo s on c.sid = s.tid
     </select>
 </mapper>

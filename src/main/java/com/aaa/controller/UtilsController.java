@@ -1,10 +1,7 @@
 package com.aaa.controller;
 
 import com.aaa.entity.*;
-import com.aaa.service.EmpService;
-import com.aaa.service.PromissionService;
-import com.aaa.service.RoleMenuService;
-import com.aaa.service.RoleService;
+import com.aaa.service.*;
 import com.aaa.service.impl.AccountService;
 import com.aaa.service.impl.StoryServiceImpl;
 import com.aaa.service.impl.ThemetypeImpl;
@@ -243,11 +240,7 @@ public class UtilsController {
             return 0;
         }
     }
-
-
-
-
-
+    
     /**
      * 马琳 收支明细
      */
@@ -260,7 +253,29 @@ public class UtilsController {
         List<Billinfo> billinfos = billInfoService.listAll_BillInfo();
         return billinfos;
     }
+    /*
+     *马琳评论查询
+     */
+    @Resource
+    CommentService commentService;
 
+    @RequestMapping("listAll_Comment")
+    public List<Comment> listAllComment(){
+        List<Comment> comments = commentService.listAll_Comment();
+        return comments;
+    }
+
+    /**
+     * 马琳 回复查询
+     */
+    @Resource
+    ReplayService replayService;
+
+    @RequestMapping("listAll_Replay")
+    public List<Replay> listAllReplay(){
+        List<Replay> replays = replayService.listAll_Replay();
+        return replays;
+    }
     //任帝 主题分类的增删改查
     @Resource
     private ThemetypeImpl themetypeimpl;

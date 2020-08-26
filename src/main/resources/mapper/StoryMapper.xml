@@ -32,7 +32,7 @@
     </select>
 
     <update id="update">
-        update storyinfo set ifselected = 1 where sid = #{sid}
+        update storyinfo set ifselected = #{ifselected} where sid = #{sid}
     </update>
 
 </mapper>

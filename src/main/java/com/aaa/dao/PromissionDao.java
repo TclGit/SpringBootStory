@@ -22,5 +22,9 @@ public interface PromissionDao {
 
    public List<Map<String,Object>> findPromiss(Integer account,Integer menupid);
 
+   //根据角色编号查询权限
+   public List<Map<String,Object>> findByRoleId(Integer rid);
+
+   List<Map<String,Object>> findPermiSsionInfo(Integer menupid);
 
 }

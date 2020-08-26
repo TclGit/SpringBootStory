@@ -2,6 +2,7 @@ package com.aaa.service.impl;
 
 import com.aaa.dao.CommentDao;
 import com.aaa.entity.Comment;
+import com.aaa.service.CommentService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,12 +14,13 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class CommentServiceImpl implements CommentDao{
+public class CommentServiceImpl implements CommentService {
 
     @Resource
     CommentDao commentDao;
 
-    public List<Comment> listAll() {
-        return commentDao.listAll();
+    @Override
+    public List<Comment> listAll_Comment() {
+        return commentDao.listAll_Comment();
     }
 }

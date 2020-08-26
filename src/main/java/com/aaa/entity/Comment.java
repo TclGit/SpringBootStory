@@ -19,5 +19,8 @@ public class Comment {
 
 //    评论故事id	sid
     private Integer sid;
-
+//关联故事
+    private Story story;
+//关联用户
+    private User user;
 }

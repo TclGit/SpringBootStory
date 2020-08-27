@@ -2,10 +2,7 @@ package com.aaa.controller;
 
 import com.aaa.entity.*;
 import com.aaa.service.*;
-import com.aaa.service.impl.AccountService;
-import com.aaa.service.impl.StoryServiceImpl;
-import com.aaa.service.impl.ThemetypeImpl;
-import com.aaa.service.impl.UserServiceImpl;
+import com.aaa.service.impl.*;
 import com.aaa.until.Alipay;
 import com.aaa.until.JwtUtils;
 import com.alipay.api.AlipayApiException;
@@ -149,7 +146,7 @@ public class UtilsController {
     }
 
     /**
-     * 王勇琦 角色修改
+     * 王勇琦
      * @param role
      * @return
      */
@@ -188,6 +185,24 @@ public class UtilsController {
         return empService.listAllEmployee(aid);
     }
 
+    @Resource
+    StoryContestServiceImpl storyContestService;
+    @RequestMapping("storyContest_listAll")
+    public List<StoryContest> storyContest_listAll(){
+        return storyContestService.listAll();
+    }
+
+    @RequestMapping("storyContest_add")
+    public int storyContest_add(@RequestBody StoryContest storyContest){
+        System.out.println(storyContest);
+        return storyContestService.add(storyContest);
+    }
+
+    @RequestMapping("storyContest_update")
+    public int storyContest_update(@RequestBody StoryContest storyContest){
+        System.out.println(storyContest);
+        return storyContestService.update(storyContest);
+    }
 
     /**
      * 马琳 账号增删改
@@ -318,6 +333,59 @@ public class UtilsController {
         if (del == 1){
             return del;
         }else {
+            return 0;
+        }
+    }
+
+    //    任帝 主题表的增删改查
+    @Resource
+    ThemeInfoImpl themeInfoimpl;
+
+    //    主题表
+    @ResponseBody
+    @RequestMapping("queryAll_ThemeInfo")
+    public List<ThemeInfo> queryAll_a(boolean rs,boolean res){
+        List<ThemeInfo> themeInfos = themeInfoimpl.queryAll_a(rs,res);
+        return themeInfos;
+    }
+
+    //    主题分类-类型名称
+    @RequestMapping("queryAll_ThemeInfo_typename")
+    public List<Theme_type> queryAll_b(){
+        List<Theme_type> theme_types = themetypeimpl.queryAll();
+        System.out.println(theme_types);
+        return theme_types;
+    }
+
+    @ResponseBody
+    @RequestMapping("add_ThemeInfo")
+    public int add(@RequestBody ThemeInfo themeInfo){
+        int adds = themeInfoimpl.add(themeInfo);
+        if(adds == 1){
+            return adds;
+        }else{
+            return 0;
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("update_ThemeInfo")
+    public int update(@RequestBody ThemeInfo themeInfo){
+        int updates = themeInfoimpl.update(themeInfo);
+        if(updates == 1){
+            return updates;
+        }else{
+            return 0;
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("delete_ThemeInfo")
+    public int delete_b(@RequestBody Map map){
+        int deletes = themeInfoimpl.delete_b((Integer) map.get("tid"));
+        if(deletes == 1){
+            return deletes;
+        }else{
             return 0;
         }
     }

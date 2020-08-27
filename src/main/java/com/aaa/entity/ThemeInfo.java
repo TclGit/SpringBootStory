@@ -37,4 +37,8 @@ public class ThemeInfo {
 
 //    结束时间
     private Date endtime;
+
+    private Theme_type theme_type;
+
+    private User user;
 }

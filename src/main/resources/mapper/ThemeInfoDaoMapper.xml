@@ -1,0 +1,60 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aaa.dao.ThemeInfoDao">
+
+    <resultMap id="themeinfoMap" type="com.aaa.entity.ThemeInfo">
+        <id column="tid" property="tid"></id>
+        <result column="tname" property="tname"></result>
+        <result column="tdesc" property="tdesc"></result>
+        <result column="coverpic" property="coverpic"></result>
+        <result column="typeid" property="typeid"></result>
+        <result column="uid" property="uid"></result>
+        <result column="state" property="state"></result>
+        <result column="starttime" property="starttime"></result>
+        <result column="endtime" property="endtime"></result>
+        <association property="theme_type" javaType="com.aaa.entity.Theme_type">
+            <result column="typename" property="typename"></result>
+        </association>
+        <association property="user" javaType="com.aaa.entity.User">
+            <result column="uname" property="uname"></result>
+        </association>
+    </resultMap>
+
+    <select id="queryAll_a" resultMap="themeinfoMap">
+        select ti.tid,ti.tname,ti.tdesc,ti.coverpic,ti.typeid,ti.uid,tt.typename,us.uname,ti.state,starttime,endtime
+         from themeinfo ti left join theme_type tt on ti.typeid=tt.typeid
+         left join user us on ti.uid=us.uid  where 1=1
+         <if test="rs == true">
+             and ti.uid = 0
+         </if>
+         <if test="res == true">
+             and  ti.tid not in (select ti.tid from themeinfo ti
+             LEFT JOIN storycontest sc on ti.tid = sc.tid where sc.scid != '')
+         </if>
+    </select>
+
+    <insert id="add">
+        insert into themeinfo values(#{tid},#{tname},#{tdesc},#{coverpic},#{typeid},0,0,#{starttime},#{endtime})
+    </insert>
+
+    <delete id="delete_b">
+        delete from themeinfo where tid=#{tid}
+    </delete>
+
+    <update id="update">
+        update themeinfo set tname=#{tname},tdesc=#{tdesc},coverpic=#{coverpic}
+        ,typeid=#{typeid},uid=#{uid},state=#{state}
+        ,starttime=#{starttime},endtime=#{endtime}
+         where tid=#{tid}
+    </update>
+
+
+
+    <select id="queryAll_b" resultType="com.aaa.entity.Theme_type">
+        select typename from theme_type
+    </select>
+
+
+</mapper>

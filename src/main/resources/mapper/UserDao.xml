@@ -16,9 +16,21 @@
     <delete id="deleteUser">
         delete from user where uid = #{uid}
     </delete>
+    <!--后台-->
+    <select id="findAll" resultType="org.apache.catalina.User">
+        select * from user
+    </select>
 
+    <select id="showPageInfo" resultType="org.apache.catalina.User">
+        select * from user
+    </select>
 
     <update id="updateState">
         update user set state = #{param1} where uid = #{param2}
     </update>
+
+    <!--前台-->
+    <select id="userLogin" resultType="org.apache.catalina.User">
+        select * from user where phone = #{param1} and pwd = #{param2}
+    </select>
 </mapper>

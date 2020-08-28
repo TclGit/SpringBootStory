@@ -8,7 +8,7 @@ public class User {
 
     private String uname;
 
-    private Integer phone;
+    private Long   phone;
 
     private String pwd;
 

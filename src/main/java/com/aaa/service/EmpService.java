@@ -1,5 +1,6 @@
 package com.aaa.service;
 
+import com.aaa.entity.Account;
 import com.aaa.entity.Employee;
 
 import java.util.List;
@@ -18,5 +19,17 @@ public interface EmpService {
 
     Integer update(Employee employee);
 
-    Employee listAllEmployee(Integer aid);
+    List<Employee> listAllEmployee(Integer aid);
+
+    Integer updateState(Integer eid);
+
+    String findAccout(Integer id);
+
+    String findRoleName(Integer id);
+
+    List<Account> findNotUserAccount();
+
+    String findRoleByAccount(Integer aid);
+
+    Integer updateAccout(Integer aid,Integer eid);
 }

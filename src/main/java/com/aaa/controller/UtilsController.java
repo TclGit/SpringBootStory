@@ -2,11 +2,9 @@ package com.aaa.controller;
 
 import com.aaa.entity.*;
 import com.aaa.service.*;
-import com.aaa.service.impl.AccountService;
-import com.aaa.service.impl.StoryServiceImpl;
-import com.aaa.service.impl.ThemetypeImpl;
-import com.aaa.service.impl.UserServiceImpl;
+import com.aaa.service.impl.*;
 import com.aaa.until.Alipay;
+import com.aaa.until.EncodingPwdUtils;
 import com.aaa.until.JwtUtils;
 import com.alipay.api.AlipayApiException;
 import com.auth0.jwt.interfaces.DecodedJWT;
@@ -170,6 +168,22 @@ public class UtilsController {
     /**
      * 田常乐
      *
+     * 资源管理
+     */
+
+    @Resource
+    MenPathServiceImpl menPathService;
+
+    @RequestMapping(value = "findMenuPath",method = RequestMethod.POST)
+    public List<MenuPath> findMenuPath()
+    {
+        System.out.println(menPathService.findMenPath());
+        return menPathService.findMenPath();
+    }
+
+    /**
+     * 田常乐
+     *
      * 支付宝
      * @param alipayUntil
      * @return
@@ -187,7 +201,7 @@ public class UtilsController {
     }
 
     /**
-     * 王勇琦 角色修改
+     * 王勇琦
      * @param role
      * @return
      */
@@ -205,8 +219,9 @@ public class UtilsController {
     StoryServiceImpl storyService;
 
     @RequestMapping("story_listAll")
-    public List<Story> story_listAll(){
-        List<Story> stories = storyService.listAll();
+    public List<Story> story_listAll(boolean rs){
+        List<Story> stories = storyService.listAll(rs);
+        System.out.println(rs);
         return stories;
     }
 
@@ -225,6 +240,24 @@ public class UtilsController {
         return empService.listAllEmployee(aid);
     }
 
+    @Resource
+    StoryContestServiceImpl storyContestService;
+    @RequestMapping("storyContest_listAll")
+    public List<StoryContest> storyContest_listAll(){
+        return storyContestService.listAll();
+    }
+
+    @RequestMapping("storyContest_add")
+    public int storyContest_add(@RequestBody StoryContest storyContest){
+        System.out.println(storyContest);
+        return storyContestService.add(storyContest);
+    }
+
+    @RequestMapping("storyContest_update")
+    public int storyContest_update(@RequestBody StoryContest storyContest){
+        System.out.println(storyContest);
+        return storyContestService.update(storyContest);
+    }
 
     /**
      * 马琳 账号增删改
@@ -268,6 +301,18 @@ public class UtilsController {
         return accountService.findAllRole();
     }
 
+    @RequestMapping("updateUnAccount/{aid}")
+    public Integer updateUnAccount(@PathVariable("aid") Integer aid)
+    {
+        return accountService.updateUnAccount(aid);
+    }
+
+    @RequestMapping("updateaccount/{aid}/{rid}")
+    public Integer updateaccount(@PathVariable("aid") Integer aid, @PathVariable("rid")Integer rid)
+    {
+        return accountService.update(aid,rid);
+    }
+
     @RequestMapping("updateAccount/{aid}")
     public Integer updateAccount(@PathVariable("aid") Integer aid,HttpServletRequest request)
     {
@@ -275,25 +320,18 @@ public class UtilsController {
         DecodedJWT verify = JwtUtils.verify(token);
         String id = verify.getClaim("id").asString();
         Integer num = Integer.parseInt(id);
+        System.out.println(aid+"______"+num);
+        System.out.println(aid==num);
         if(aid == num)
         {
             return 0;
         }
-        else {
+        else
+        {
+            System.out.println("你猜走没走");
+            System.out.println(accountService.updateAccount(aid));
             return accountService.updateAccount(aid);
         }
-    }
-
-    @RequestMapping("updateUnAccount/{aid}")
-    public Integer updateUnAccount(@PathVariable("aid") Integer aid)
-    {
-        return accountService.updateUnAccount(aid);
-    }
-
-    @ResponseBody
-    @RequestMapping("update_account/{aid}/{rid}")
-    public Integer updateA(@PathVariable("aid")Integer aid,@PathVariable("rid")Integer rid){
-        return accountService.update(aid,rid);
     }
 
 
@@ -359,7 +397,109 @@ public class UtilsController {
         }
     }
 
+    //    任帝 主题表的增删改查
 
+    @Resource
+
+    ThemeInfoImpl themeInfoimpl;
+
+
+
+    //    主题表
+
+    @ResponseBody
+
+    @RequestMapping("queryAll_ThemeInfo")
+
+    public List<ThemeInfo> queryAll_a(boolean rs,boolean res){
+
+        List<ThemeInfo> themeInfos = themeInfoimpl.queryAll_a(rs,res);
+
+        return themeInfos;
+
+    }
+
+
+
+    //    主题分类-类型名称
+
+    @RequestMapping("queryAll_ThemeInfo_typename")
+
+    public List<Theme_type> queryAll_b(){
+
+        List<Theme_type> theme_types = themetypeimpl.queryAll();
+
+        System.out.println(theme_types);
+
+        return theme_types;
+
+    }
+
+
+
+    @ResponseBody
+
+    @RequestMapping("add_ThemeInfo")
+
+    public int add(@RequestBody ThemeInfo themeInfo){
+
+        int adds = themeInfoimpl.add(themeInfo);
+
+        if(adds == 1){
+
+            return adds;
+
+        }else{
+
+            return 0;
+
+        }
+
+    }
+
+
+
+    @ResponseBody
+
+    @RequestMapping("update_ThemeInfo")
+
+    public int update(@RequestBody ThemeInfo themeInfo){
+
+        int updates = themeInfoimpl.update(themeInfo);
+
+        if(updates == 1){
+
+            return updates;
+
+        }else{
+
+            return 0;
+
+        }
+
+    }
+
+
+
+    @ResponseBody
+
+    @RequestMapping("delete_ThemeInfo")
+
+    public int delete_b(@RequestBody Map map){
+
+        int deletes = themeInfoimpl.delete_b((Integer) map.get("tid"));
+
+        if(deletes == 1){
+
+            return deletes;
+
+        }else{
+
+            return 0;
+
+        }
+
+    }
 
 
 
@@ -390,23 +530,11 @@ public class UtilsController {
         return userServiceImpl.addUser(user);
     }
 
-
-    @RequestMapping(value = "updateUser",method = RequestMethod.POST)
-    @ResponseBody
-    public Integer updateUser(@RequestBody User user){
-        return userServiceImpl.updateUser(user);
-    }
-
-
     /**
      * @PathVariable 映射 URL 绑定的占位符
      * @param uid
      * @return
      */
-    @RequestMapping(value = "deleteUser/{uid}",method = RequestMethod.POST)
-    public Integer deleteUser(@RequestBody @PathVariable("uid") Integer uid){
-        return userServiceImpl.deleteUser(uid);
-    }
 
 
     @RequestMapping(value = "updateState/{uid}/{state}",method = RequestMethod.POST)
@@ -414,6 +542,32 @@ public class UtilsController {
         System.out.println("修改用户状态");
         System.out.println(state+""+uid);
         return userServiceImpl.updateState(state,uid);
+    }
+
+
+    //查询原密码
+    @RequestMapping(value = "selectPwd",method = RequestMethod.POST)
+    public Boolean selectPwd(HttpServletRequest request,@RequestBody String pwd){
+        String str = pwd;
+        String str1 = str.replace("=","");
+        String token = request.getHeader("token");
+        DecodedJWT verify = JwtUtils.verify(token);
+        String id = verify.getClaim("id").asString();
+        EncodingPwdUtils encodingPwdUtils = new EncodingPwdUtils();
+        String apwd = accountService.selectPwd(id);
+        boolean flag = encodingPwdUtils.pwd(str1, apwd);
+        System.out.println("f:"+flag);
+        return flag;
+    }
+    //账号表修改密码
+    @RequestMapping(value = "updatePwd/{pwd}",method = RequestMethod.POST)
+    public Integer updatePwd(@PathVariable("pwd") String pwd,HttpServletRequest request){
+        String token = request.getHeader("token");
+        DecodedJWT verify = JwtUtils.verify(token);
+        String id = verify.getClaim("id").asString();
+        EncodingPwdUtils encodingPwdUtils = new EncodingPwdUtils();
+        String strpwd = encodingPwdUtils.encode(pwd);
+        return accountService.updatePwd(strpwd,Integer.parseInt(id));
     }
 
 

@@ -1,0 +1,39 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.dao.StoryContestDao">
+
+    <resultMap id="storyMap" type="com.aaa.entity.StoryContest">
+        <id column="scid" property="scid"></id>
+        <result column="scname" property="scname"></result>
+        <result column="scdesc" property="scdesc"></result>
+        <result column="scstate" property="scstate"></result>
+        <result column="storycount" property="storycount"></result>
+        <association property="themeInfo" javaType="com.aaa.entity.ThemeInfo">
+            <id column="tid" property="tid"></id>
+            <result column="tname" property="tname"></result>
+            <result column="tdesc" property="tdesc"></result>
+            <result column="starttime" property="starttime"></result>
+            <result column="endtime" property="endtime"></result>
+        </association>
+        <association property="theme_type" javaType="com.aaa.entity.Theme_type">
+            <id column="typeid" property="typeid"></id>
+            <result column="typename" property="typename"></result>
+        </association>
+
+    </resultMap>
+    <select id="listAll" resultMap="storyMap">
+        select sc.scid,sc.scname,sc.scdesc,sc.scstate,t.tid,t.tname,t.tdesc,t.starttime,t.endtime,tt.typeid,
+        tt.typename,(select count(*) FROM storyinfo s where s.tid =t.tid) storycount
+        from storycontest sc LEFT JOIN themeinfo t on sc.tid = t.tid
+        LEFT JOIN theme_type tt ON t.typeid = tt.typeid
+    </select>
+
+    <insert id="add">
+        insert into storycontest values(null,#{scname},#{scdesc},#{tid},#{scstate})
+    </insert>
+
+    <update id="update">
+        update storycontest set scname = #{scname},scdesc = #{scdesc},scstate = #{scstate} where scid = #{scid}
+    </update>
+</mapper>

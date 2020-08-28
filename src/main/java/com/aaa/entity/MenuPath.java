@@ -16,4 +16,6 @@ public class MenuPath implements Serializable {
 
     private Integer menuid;
 
+    private Menu menu;
+
 }

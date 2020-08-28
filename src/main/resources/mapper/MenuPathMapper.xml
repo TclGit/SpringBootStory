@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.dao.RourceDao">
+    
+    <resultMap id="MenuResultMap" type="com.aaa.entity.MenuPath">
+        <id property="id" column="id"></id>
+        <result property="memo" column="memo"></result>
+        <result property="menuid" column="menuid"></result>
+        <result property="pathurl" column="pathurl"></result>
+        <association property="menuid" javaType="com.aaa.entity.Menu">
+            <id column="id" jdbcType="NUMERIC" property="id"></id>
+            <result column="menupid" jdbcType="NUMERIC" property="menupid"></result>
+            <result column="child" jdbcType="VARCHAR" property="child"></result>
+            <result column="menuname" jdbcType="VARCHAR" property="menuname"></result>
+            <result column="path" jdbcType="VARCHAR" property="path"></result>
+            <result column="routename" jdbcType="VARCHAR" property="routename"></result>
+            <result column="componentname" jdbcType="VARCHAR" property="componentname"></result>
+            <result column="icon" jdbcType="VARCHAR" property="icon"></result>
+        </association>
+    </resultMap>
+    
+
+    <select id="findMenuPath" resultType="com.aaa.entity.MenuPath">
+        select mp.*,m.menuname from menu_path mp LEFT JOIN menu m on mp.menuid = m.id
+    </select>
+
+</mapper>

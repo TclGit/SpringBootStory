@@ -29,5 +29,11 @@ public interface AccountDao {
 
 
     //李慧敏   账号表密码修改
-    Integer updatePwd(String account,String pwd);
+    String selectPwd(String pwd);
+
+
+    Integer updatePwd(String pwd,Integer aid);
+
+
+    List<Account>  findAid(String aid);
 }

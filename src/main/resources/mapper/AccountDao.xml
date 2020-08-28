@@ -17,7 +17,7 @@
     </select>
 
     <update id="updateAccount">
-        update account set iscredentialsnonexpired = 0 where aid = #{aid}
+        update account set iscredentialsnonexpired = 0 where aid = #{value}
     </update>
 
     <update id="updateUnAccount">
@@ -28,4 +28,18 @@
     <select id="ListAll" resultType="com.aaa.entity.Account">
         select * from account
     </select>
+
+    <!--李慧敏-->
+    <select id="findAid" resultType="java.lang.String">
+        select employee.ename,account.* from account join employee on account.aid = employee.cid where account.aid = #{aid}
+    </select>
+
+    <select id="selectPwd" resultType="java.lang.String">
+          select pwd from account where account.aid = #{aid}
+    </select>
+
+
+    <update id="updatePwd">
+        update account set pwd = #{param1} where aid = #{param2}
+    </update>
 </mapper>

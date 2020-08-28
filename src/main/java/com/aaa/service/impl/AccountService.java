@@ -53,7 +53,18 @@ public class AccountService implements AccountDao {
 
 
     @Override
-    public Integer updatePwd(String account, String pwd) {
-        return accountDao.updatePwd(account,pwd);
+    public String selectPwd(String pwd) {
+        return accountDao.selectPwd(pwd);
+    }
+
+
+    @Override
+    public Integer updatePwd(String pwd,Integer aid) {
+        return accountDao.updatePwd(pwd,aid);
+    }
+
+    @Override
+    public List<Account> findAid(String aid) {
+        return accountDao.findAid(aid);
     }
 }

@@ -1,10 +1,7 @@
 package com.aaa.controller;
 
 import com.aaa.entity.*;
-import com.aaa.service.EmpService;
-import com.aaa.service.PromissionService;
-import com.aaa.service.RoleMenuService;
-import com.aaa.service.RoleService;
+import com.aaa.service.*;
 import com.aaa.service.impl.AccountService;
 import com.aaa.service.impl.StoryServiceImpl;
 import com.aaa.service.impl.ThemetypeImpl;
@@ -86,6 +83,44 @@ public class UtilsController {
     {
         System.out.println(employee);
         return empService.update(employee);
+    }
+
+    @RequestMapping("updateState/{eid}")
+    public Integer updateState(@PathVariable("eid") Integer eid)
+    {
+        return empService.updateState(eid);
+    }
+
+    @RequestMapping("findAccount/{id}")
+    public String findAccount(@PathVariable("id") Integer id)
+    {
+        return empService.findAccout(id);
+    }
+
+    @RequestMapping("findRoleName/{id}")
+    public String findRoleName(@PathVariable("id") Integer id)
+    {
+        return empService.findRoleName(id);
+    }
+
+    @RequestMapping("findNotUserAccount")
+    public List<Account> findNotUserAccount()
+    {
+        return empService.findNotUserAccount();
+    }
+
+    //List<Role> findRoleByAccount(Integer aid);
+    @RequestMapping("findRoleByAccount/{aid}")
+    public String findRoleByAccount(@PathVariable("aid") Integer aid)
+    {
+        return empService.findRoleByAccount(aid);
+    }
+
+    //updateAccout
+    @RequestMapping("updateAccout/{aid}/{eid}")
+    public Integer updateAccout(@PathVariable("aid") Integer aid,@PathVariable("eid") Integer eid)
+    {
+        return empService.updateAccout(aid,eid);
     }
 
     /**
@@ -221,26 +256,44 @@ public class UtilsController {
         }
     }
 
-    @ResponseBody
-    @RequestMapping("update_account")
-    public Object update(@RequestBody Account account){
-        Integer update = accountService.update(account);
-        if (update ==1){
-            return update;
-        }else {
+    @RequestMapping("findRole/{aid}")
+    public String findRole(@PathVariable("aid") Integer aid)
+    {
+        return accountService.findRole(aid);
+    }
+
+    @RequestMapping("queryRole")
+    public List<Role> queryRole()
+    {
+        return accountService.findAllRole();
+    }
+
+    @RequestMapping("updateAccount/{aid}")
+    public Integer updateAccount(@PathVariable("aid") Integer aid,HttpServletRequest request)
+    {
+        String token = request.getHeader("token");
+        DecodedJWT verify = JwtUtils.verify(token);
+        String id = verify.getClaim("id").asString();
+        Integer num = Integer.parseInt(id);
+        if(aid == num)
+        {
             return 0;
+        }
+        else {
+            return accountService.updateAccount(aid);
         }
     }
 
+    @RequestMapping("updateUnAccount/{aid}")
+    public Integer updateUnAccount(@PathVariable("aid") Integer aid)
+    {
+        return accountService.updateUnAccount(aid);
+    }
+
     @ResponseBody
-    @RequestMapping("del")
-    public Object del(@RequestBody Map map){
-        Integer del = accountService.del((Integer) map.get("aid"));
-        if (del == 1){
-            return del;
-        }else {
-            return 0;
-        }
+    @RequestMapping("update_account/{aid}/{rid}")
+    public Integer updateA(@PathVariable("aid")Integer aid,@PathVariable("rid")Integer rid){
+        return accountService.update(aid,rid);
     }
 
 

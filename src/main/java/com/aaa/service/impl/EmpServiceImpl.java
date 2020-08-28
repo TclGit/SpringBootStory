@@ -2,6 +2,7 @@ package com.aaa.service.impl;
 
 
 import com.aaa.dao.EmpInfoDao;
+import com.aaa.entity.Account;
 import com.aaa.entity.Employee;
 import com.aaa.service.EmpService;
 import org.springframework.stereotype.Service;
@@ -42,5 +43,35 @@ public class EmpServiceImpl implements EmpService {
     @Override
     public List<Employee> listAllEmployee(Integer aid) {
         return empInfoDao.listAllEmployee(aid);
+    }
+
+    @Override
+    public Integer updateState(Integer eid) {
+        return empInfoDao.updateState(eid);
+    }
+
+    @Override
+    public String findAccout(Integer id) {
+        return empInfoDao.findAccout(id);
+    }
+
+    @Override
+    public String findRoleName(Integer id) {
+        return empInfoDao.findRoleName(id);
+    }
+
+    @Override
+    public List<Account> findNotUserAccount() {
+        return empInfoDao.findNotUserAccount();
+    }
+
+    @Override
+    public String findRoleByAccount(Integer aid) {
+        return empInfoDao.findRoleByAccount(aid);
+    }
+
+    @Override
+    public Integer updateAccout(Integer aid, Integer eid) {
+        return empInfoDao.updateAccout(aid,eid);
     }
 }

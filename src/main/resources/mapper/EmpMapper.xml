@@ -52,7 +52,7 @@
 
 
     <select id="findall" resultType="com.aaa.entity.Employee">
-          select eid,ename,sex,phone,pro,addr,idcard,email,state from employee
+          select eid,ename,sex,phone,pro,addr,idcard,email,state,cid from employee
     </select>
 
     <insert id="add">
@@ -65,5 +65,46 @@
 
     <update id="update">
         update employee set ename=#{ename},sex=#{sex},phone=#{phone},pro=#{pro},addr=#{addr},idcard=#{idcard},email=#{email} where eid = #{eid}
+    </update>
+
+    <update id="updateState">
+        update employee set state = 0, cid = null where eid = #{eid}
+    </update>
+
+    <select id="findAccout" resultType="java.lang.String">
+        select a.account from employee e
+        left join account a
+        on e.cid = a.aid where e.eid = #{eid}
+    </select>
+
+    <select id="findRoleName" resultType="java.lang.String">
+        select r.rname from employee e
+        left join account a
+        on e.cid = a.aid
+        left join account_role ar
+        on ar.aid = a.aid
+        left join role r
+        on ar.rid = r.rid
+        where e.eid = #{eid}
+    </select>
+
+    <select id="findNotUserAccount" resultType="com.aaa.entity.Account">
+        select * from account a
+        where a.aid not in
+        (select cid from employee where cid!="")
+    </select>
+
+
+    <select id="findRoleByAccount" resultType="java.lang.String">
+        select rname from account a
+        left join account_role ar
+        on a.aid = ar.aid
+        left join role r
+        on r.rid = ar.rid
+        where a.aid = #{aid}
+    </select>
+
+    <update id="updateAccout">
+        update employee set cid = #{param1} where eid=#{param2}
     </update>
 </mapper>

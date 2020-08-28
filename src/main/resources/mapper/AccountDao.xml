@@ -4,12 +4,27 @@
     <insert id="insert">
         insert into account values (null,#{account},#{pwd},#{createtime},1,1,1,1,1)
     </insert>
-    <update id="update">
-        update account set account=#{account} where aid=#{aid}
+    <insert id="update">
+        insert account_role(aid,rid) values (#{param1},#{param2})
+    </insert>
+
+    <select id="findRole" resultType="java.lang.String">
+        select rname from account a left join account_role ar on a.aid = ar.aid LEFT JOIN role r  on r.rid = ar.rid where a.aid = #{aid}
+    </select>
+
+    <select id="findAllRole" resultType="com.aaa.entity.Role">
+        select * from role
+    </select>
+
+    <update id="updateAccount">
+        update account set iscredentialsnonexpired = 0 where aid = #{aid}
     </update>
-    <delete id="del">
-        delete from account where aid=#{value}
-    </delete>
+
+    <update id="updateUnAccount">
+        update account set iscredentialsnonexpired = 1 where aid = #{aid}
+    </update>
+
+
     <select id="ListAll" resultType="com.aaa.entity.Account">
         select * from account
     </select>
